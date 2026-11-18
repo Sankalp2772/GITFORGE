@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" width="1400" height="800">
+  <defs>
+    <linearGradient id="erbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#121824"/>
+    </linearGradient>
+    <filter id="ershadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="800" fill="url(#erbg)" rx="12"/>
+  <text x="700" y="45" fill="#f0f6fc" font-size="24" font-family="Segoe UI, sans-serif" font-weight="bold" text-anchor="middle">GitForge Relational Database Architecture (Prisma MySQL Schema)</text>
+  <text x="700" y="70" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif" text-anchor="middle">Complete Entity-Relationship Diagram with Foreign Keys and Cardinalities</text>
+
+  <!-- Entity: User -->
+  <g transform="translate(60, 110)" filter="url(#ershadow)">
+    <rect width="220" height="230" rx="6" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <rect width="220" height="32" rx="6" fill="#1f6feb"/>
+    <text x="110" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">users</text>
+    <text x="15" y="55" fill="#79c0ff" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#c9d1d9" font-size="12" font-family="Consolas">username : String (UQ)</text>
+    <text x="15" y="101" fill="#c9d1d9" font-size="12" font-family="Consolas">email : String (UQ)</text>
+    <text x="15" y="124" fill="#c9d1d9" font-size="12" font-family="Consolas">passwordHash : String</text>
+    <text x="15" y="147" fill="#c9d1d9" font-size="12" font-family="Consolas">avatarUrl : String?</text>
+    <text x="15" y="170" fill="#c9d1d9" font-size="12" font-family="Consolas">role : UserRole</text>
+    <text x="15" y="193" fill="#8b949e" font-size="12" font-family="Consolas">createdAt : DateTime</text>
+    <text x="15" y="216" fill="#8b949e" font-size="12" font-family="Consolas">updatedAt : DateTime</text>
+  </g>
+
+  <!-- Entity: Repository -->
+  <g transform="translate(380, 110)" filter="url(#ershadow)">
+    <rect width="250" height="260" rx="6" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+    <rect width="250" height="32" rx="6" fill="#8957e5"/>
+    <text x="125" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">repositories</text>
+    <text x="15" y="55" fill="#d2a8ff" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#c9d1d9" font-size="12" font-family="Consolas">name : String</text>
+    <text x="15" y="101" fill="#c9d1d9" font-size="12" font-family="Consolas">description : String?</text>
+    <text x="15" y="124" fill="#c9d1d9" font-size="12" font-family="Consolas">isPrivate : Boolean</text>
+    <text x="15" y="147" fill="#79c0ff" font-size="12" font-family="Consolas">FK ownerId : String -&gt; users</text>
+    <text x="15" y="170" fill="#c9d1d9" font-size="12" font-family="Consolas">defaultBranch : String</text>
+    <text x="15" y="193" fill="#c9d1d9" font-size="12" font-family="Consolas">diskPath : String</text>
+    <text x="15" y="216" fill="#8b949e" font-size="12" font-family="Consolas">createdAt : DateTime</text>
+    <text x="15" y="239" fill="#8b949e" font-size="12" font-family="Consolas">UQ(ownerId, name)</text>
+  </g>
+
+  <!-- Entity: RepositoryMember -->
+  <g transform="translate(60, 420)" filter="url(#ershadow)">
+    <rect width="230" height="170" rx="6" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+    <rect width="230" height="32" rx="6" fill="#238636"/>
+    <text x="115" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">repository_members</text>
+    <text x="15" y="55" fill="#7ee787" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#d2a8ff" font-size="12" font-family="Consolas">FK repoId : String</text>
+    <text x="15" y="101" fill="#79c0ff" font-size="12" font-family="Consolas">FK userId : String</text>
+    <text x="15" y="124" fill="#c9d1d9" font-size="12" font-family="Consolas">role : MemberRole</text>
+    <text x="15" y="147" fill="#8b949e" font-size="12" font-family="Consolas">UQ(repoId, userId)</text>
+  </g>
+
+  <!-- Entity: Branch -->
+  <g transform="translate(380, 450)" filter="url(#ershadow)">
+    <rect width="250" height="180" rx="6" fill="#161b22" stroke="#e3b341" stroke-width="2"/>
+    <rect width="250" height="32" rx="6" fill="#d29922"/>
+    <text x="125" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">branches</text>
+    <text x="15" y="55" fill="#f0e68c" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#d2a8ff" font-size="12" font-family="Consolas">FK repositoryId : String</text>
+    <text x="15" y="101" fill="#c9d1d9" font-size="12" font-family="Consolas">name : String</text>
+    <text x="15" y="124" fill="#c9d1d9" font-size="12" font-family="Consolas">commitSha : String</text>
+    <text x="15" y="147" fill="#8b949e" font-size="12" font-family="Consolas">isDefault : Boolean</text>
+  </g>
+
+  <!-- Entity: PullRequest -->
+  <g transform="translate(720, 110)" filter="url(#ershadow)">
+    <rect width="260" height="250" rx="6" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+    <rect width="260" height="32" rx="6" fill="#da3633"/>
+    <text x="130" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">pull_requests</text>
+    <text x="15" y="55" fill="#ff7b72" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#c9d1d9" font-size="12" font-family="Consolas">number : Int</text>
+    <text x="15" y="101" fill="#c9d1d9" font-size="12" font-family="Consolas">title : String</text>
+    <text x="15" y="124" fill="#d2a8ff" font-size="12" font-family="Consolas">FK repoId : String</text>
+    <text x="15" y="147" fill="#79c0ff" font-size="12" font-family="Consolas">FK authorId : String</text>
+    <text x="15" y="170" fill="#c9d1d9" font-size="12" font-family="Consolas">sourceBranch : String</text>
+    <text x="15" y="193" fill="#c9d1d9" font-size="12" font-family="Consolas">targetBranch : String</text>
+    <text x="15" y="216" fill="#c9d1d9" font-size="12" font-family="Consolas">status : PRStatus</text>
+  </g>
+
+  <!-- Entity: Issue -->
+  <g transform="translate(1070, 110)" filter="url(#ershadow)">
+    <rect width="250" height="230" rx="6" fill="#161b22" stroke="#56d364" stroke-width="2"/>
+    <rect width="250" height="32" rx="6" fill="#2ea043"/>
+    <text x="125" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">issues</text>
+    <text x="15" y="55" fill="#7ee787" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#c9d1d9" font-size="12" font-family="Consolas">number : Int</text>
+    <text x="15" y="101" fill="#c9d1d9" font-size="12" font-family="Consolas">title : String</text>
+    <text x="15" y="124" fill="#d2a8ff" font-size="12" font-family="Consolas">FK repoId : String</text>
+    <text x="15" y="147" fill="#79c0ff" font-size="12" font-family="Consolas">FK authorId : String</text>
+    <text x="15" y="170" fill="#c9d1d9" font-size="12" font-family="Consolas">status : IssueStatus</text>
+    <text x="15" y="193" fill="#8b949e" font-size="12" font-family="Consolas">createdAt : DateTime</text>
+  </g>
+
+  <!-- Entity: ActivityLog / Notification -->
+  <g transform="translate(720, 440)" filter="url(#ershadow)">
+    <rect width="260" height="190" rx="6" fill="#161b22" stroke="#a371f7" stroke-width="2"/>
+    <rect width="260" height="32" rx="6" fill="#8957e5"/>
+    <text x="130" y="21" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">activity_logs</text>
+    <text x="15" y="55" fill="#d2a8ff" font-size="12" font-family="Consolas">PK id : String (uuid)</text>
+    <text x="15" y="78" fill="#79c0ff" font-size="12" font-family="Consolas">FK userId : String</text>
+    <text x="15" y="101" fill="#d2a8ff" font-size="12" font-family="Consolas">FK repoId : String?</text>
+    <text x="15" y="124" fill="#c9d1d9" font-size="12" font-family="Consolas">action : String</text>
+    <text x="15" y="147" fill="#c9d1d9" font-size="12" font-family="Consolas">details : Json</text>
+    <text x="15" y="170" fill="#8b949e" font-size="12" font-family="Consolas">createdAt : DateTime</text>
+  </g>
+
+  <!-- Connectors -->
+  <!-- User to Repo (1:N) -->
+  <path d="M 280 200 L 380 200" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4"/>
+  <text x="330" y="190" fill="#58a6ff" font-size="12" font-family="Segoe UI" text-anchor="middle">1 : N</text>
+
+  <!-- Repo to Member (1:N) -->
+  <path d="M 430 370 L 430 400 L 290 440" stroke="#3fb950" stroke-width="2"/>
+  <!-- Repo to Branch (1:N) -->
+  <path d="M 500 370 L 500 450" stroke="#e3b341" stroke-width="2"/>
+  <!-- Repo to PR (1:N) -->
+  <path d="M 630 200 L 720 200" stroke="#f85149" stroke-width="2"/>
+  <text x="675" y="190" fill="#f85149" font-size="12" font-family="Segoe UI" text-anchor="middle">1 : N</text>
+  <!-- Repo to Issue (1:N) -->
+  <path d="M 980 200 L 1070 200" stroke="#56d364" stroke-width="2"/>
+  <text x="1025" y="190" fill="#56d364" font-size="12" font-family="Segoe UI" text-anchor="middle">1 : N</text>
+</svg>

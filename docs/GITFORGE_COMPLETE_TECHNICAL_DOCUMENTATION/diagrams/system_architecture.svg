@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%" style="background:#0f172a; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <defs>
+    <linearGradient id="gradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="layerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="40" y="25" width="1120" height="70" rx="12" fill="url(#gradHeader)" filter="url(#shadow)"/>
+  <text x="600" y="60" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="bold" letter-spacing="1">GITFORGE SYSTEM ARCHITECTURE</text>
+  <text x="600" y="82" text-anchor="middle" fill="#ddd6fe" font-size="13">5-Layer Enterprise Blueprint: Git Smart HTTP, Incremental Build DAG &amp; Action Cache (CAS)</text>
+
+  <!-- LAYER 1: Frontend -->
+  <g transform="translate(40, 115)">
+    <rect width="1120" height="105" rx="10" fill="url(#layerGrad)" stroke="#6366f1" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1120" height="28" rx="10" fill="#4338ca"/>
+    <text x="20" y="19" fill="#ffffff" font-size="13" font-weight="bold">LAYER 1: PRESENTATION &amp; WORKFLOW LAYER (React 18 + Vite :5174)</text>
+    
+    <!-- Boxes -->
+    <rect x="20" y="42" width="200" height="50" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="120" y="64" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Repository Browser</text>
+    <text x="120" y="80" text-anchor="middle" fill="#a5b4fc" font-size="10">Tree, Commits, Branches, PRs</text>
+
+    <rect x="240" y="42" width="200" height="50" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="340" y="64" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Monaco Code Viewer</text>
+    <text x="340" y="80" text-anchor="middle" fill="#a5b4fc" font-size="10">Embedded Editor &amp; Markdown</text>
+
+    <rect x="460" y="42" width="200" height="50" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="560" y="64" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Dependency Graph UI</text>
+    <text x="560" y="80" text-anchor="middle" fill="#a5b4fc" font-size="10">React Flow DAG Visualizer</text>
+
+    <rect x="680" y="42" width="200" height="50" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="780" y="64" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Build Execution UI</text>
+    <text x="780" y="80" text-anchor="middle" fill="#a5b4fc" font-size="10">8-Worker Task Monitor</text>
+
+    <rect x="900" y="42" width="200" height="50" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="1000" y="64" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Interactive Terminal</text>
+    <text x="1000" y="80" text-anchor="middle" fill="#a5b4fc" font-size="10">Live Stdout/Stderr &amp; Stdin Bar</text>
+  </g>
+
+  <!-- Inter-layer Arrow 1 -->
+  <line x1="600" y1="220" x2="600" y2="245" stroke="#a855f7" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="600,248 595,238 605,238" fill="#a855f7"/>
+  <text x="615" y="238" fill="#c084fc" font-size="11" font-weight="bold">HTTP JSON REST / Git Smart HTTP Streams</text>
+
+  <!-- LAYER 2: Network & Transport -->
+  <g transform="translate(40, 250)">
+    <rect width="1120" height="75" rx="10" fill="url(#layerGrad)" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1120" height="24" rx="10" fill="#1d4ed8"/>
+    <text x="20" y="17" fill="#ffffff" font-size="12" font-weight="bold">LAYER 2: NETWORK &amp; TRANSPORT PROTOCOLS (Layer 4 TCP Sockets)</text>
+
+    <rect x="20" y="34" width="255" height="32" rx="5" fill="#172554" stroke="#60a5fa"/>
+    <text x="147" y="54" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">TCP :5000: Express REST API</text>
+
+    <rect x="295" y="34" width="255" height="32" rx="5" fill="#172554" stroke="#60a5fa"/>
+    <text x="422" y="54" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">TCP :5000: Git Smart HTTP (RPC)</text>
+
+    <rect x="570" y="34" width="255" height="32" rx="5" fill="#172554" stroke="#60a5fa"/>
+    <text x="697" y="54" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">TCP :3306: MySQL Wire Protocol</text>
+
+    <rect x="845" y="34" width="255" height="32" rx="5" fill="#172554" stroke="#60a5fa"/>
+    <text x="972" y="54" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">Dynamic TCP Port Allocator</text>
+  </g>
+
+  <!-- Inter-layer Arrow 2 -->
+  <line x1="600" y1="325" x2="600" y2="348" stroke="#3b82f6" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="600,351 595,341 605,341" fill="#3b82f6"/>
+
+  <!-- LAYER 3: Backend Application Core -->
+  <g transform="translate(40, 353)">
+    <rect width="1120" height="95" rx="10" fill="url(#layerGrad)" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1120" height="26" rx="10" fill="#047857"/>
+    <text x="20" y="18" fill="#ffffff" font-size="12" font-weight="bold">LAYER 3: BACKEND APPLICATION CORE (Node.js + Express + TypeScript)</text>
+
+    <rect x="20" y="38" width="200" height="46" rx="5" fill="#064e3b" stroke="#34d399"/>
+    <text x="120" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">JWT &amp; Basic Auth</text>
+    <text x="120" y="73" text-anchor="middle" fill="#a7f3d0" font-size="10">RBAC &amp; Token Validator</text>
+
+    <rect x="240" y="38" width="200" height="46" rx="5" fill="#064e3b" stroke="#34d399"/>
+    <text x="340" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Git HTTP Controller</text>
+    <text x="340" y="73" text-anchor="middle" fill="#a7f3d0" font-size="10">Upload-Pack &amp; Receive-Pack</text>
+
+    <rect x="460" y="38" width="200" height="46" rx="5" fill="#064e3b" stroke="#34d399"/>
+    <text x="560" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Repository Controllers</text>
+    <text x="560" y="73" text-anchor="middle" fill="#a7f3d0" font-size="10">Trees, Commits, PRs, Issues</text>
+
+    <rect x="680" y="38" width="200" height="46" rx="5" fill="#064e3b" stroke="#34d399"/>
+    <text x="780" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Build Engine Controller</text>
+    <text x="780" y="73" text-anchor="middle" fill="#a7f3d0" font-size="10">Orchestrator &amp; Session Store</text>
+
+    <rect x="900" y="38" width="200" height="46" rx="5" fill="#064e3b" stroke="#34d399"/>
+    <text x="1000" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Prisma ORM Client</text>
+    <text x="1000" y="73" text-anchor="middle" fill="#a7f3d0" font-size="10">Connection Pool &amp; Type-Safe</text>
+  </g>
+
+  <!-- Inter-layer Arrow 3 -->
+  <line x1="600" y1="448" x2="600" y2="470" stroke="#10b981" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="600,473 595,463 605,463" fill="#10b981"/>
+
+  <!-- LAYER 4: Incremental Build Engine -->
+  <g transform="translate(40, 475)">
+    <rect width="1120" height="145" rx="10" fill="url(#layerGrad)" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1120" height="26" rx="10" fill="#b45309"/>
+    <text x="20" y="18" fill="#ffffff" font-size="12" font-weight="bold">LAYER 4: INCREMENTAL BUILD &amp; DEPENDENCY ENGINE (Algorithmic Core)</text>
+
+    <!-- Row 1 Algorithms -->
+    <rect x="20" y="36" width="200" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="120" y="55" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">1. Git Object Snapshot</text>
+    <text x="120" y="70" text-anchor="middle" fill="#fde68a" font-size="9.5">repoSnapshotService.ts</text>
+
+    <rect x="240" y="36" width="200" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="340" y="55" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">2. SHA-256 Hasher</text>
+    <text x="340" y="70" text-anchor="middle" fill="#fde68a" font-size="9.5">hashService.ts</text>
+
+    <rect x="460" y="36" width="200" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="560" y="55" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">3. C++ Include DAG</text>
+    <text x="560" y="70" text-anchor="middle" fill="#fde68a" font-size="9.5">graphBuilder.ts</text>
+
+    <rect x="680" y="36" width="200" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="780" y="55" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">4. Hash Diff Engine</text>
+    <text x="780" y="70" text-anchor="middle" fill="#fde68a" font-size="9.5">changeDetectionService.ts</text>
+
+    <rect x="900" y="36" width="200" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="1000" y="55" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">5. BFS Reverse Impact</text>
+    <text x="1000" y="70" text-anchor="middle" fill="#fde68a" font-size="9.5">affectedAnalysisService.ts</text>
+
+    <!-- Row 2 Algorithms -->
+    <rect x="20" y="90" width="255" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="147" y="109" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">6. Kahn's Planner &amp; Cycle Guard</text>
+    <text x="147" y="124" text-anchor="middle" fill="#fde68a" font-size="9.5">buildPlannerService.ts</text>
+
+    <rect x="295" y="90" width="255" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="422" y="109" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">7. Action Cache (CAS)</text>
+    <text x="422" y="124" text-anchor="middle" fill="#fde68a" font-size="9.5">buildCacheService.ts (&lt;5ms restore)</text>
+
+    <rect x="570" y="90" width="255" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="697" y="109" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">8. Parallel Scheduler (8 Workers)</text>
+    <text x="697" y="124" text-anchor="middle" fill="#fde68a" font-size="9.5">parallelBuildScheduler.ts</text>
+
+    <rect x="845" y="90" width="255" height="45" rx="5" fill="#451a03" stroke="#fbbf24"/>
+    <text x="972" y="109" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">9. Native Process Runner</text>
+    <text x="972" y="124" text-anchor="middle" fill="#fde68a" font-size="9.5">localRunManager.ts + Stdin</text>
+  </g>
+
+  <!-- Inter-layer Arrow 4 -->
+  <line x1="600" y1="620" x2="600" y2="643" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="600,646 595,636 605,636" fill="#f59e0b"/>
+
+  <!-- LAYER 5: Storage & Persistence -->
+  <g transform="translate(40, 650)">
+    <rect width="1120" height="115" rx="10" fill="url(#layerGrad)" stroke="#ec4899" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1120" height="26" rx="10" fill="#be185d"/>
+    <text x="20" y="18" fill="#ffffff" font-size="12" font-weight="bold">LAYER 5: STORAGE &amp; PERSISTENCE LAYER (Disk &amp; Database)</text>
+
+    <rect x="20" y="38" width="255" height="65" rx="6" fill="#500724" stroke="#f472b6"/>
+    <text x="147" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">MySQL Database (Port 3306)</text>
+    <text x="147" y="74" text-anchor="middle" fill="#fbcfe8" font-size="9.5">Users, Repos, Members, PRs,</text>
+    <text x="147" y="88" text-anchor="middle" fill="#fbcfe8" font-size="9.5">Issues, Labels, Activity Logs</text>
+
+    <rect x="295" y="38" width="255" height="65" rx="6" fill="#500724" stroke="#f472b6"/>
+    <text x="422" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Bare Git Repositories</text>
+    <text x="422" y="74" text-anchor="middle" fill="#fbcfe8" font-size="9.5">D:/gitforge/data/repos/</text>
+    <text x="422" y="88" text-anchor="middle" fill="#fbcfe8" font-size="9.5">Immutable Git Objects &amp; Refs</text>
+
+    <rect x="570" y="38" width="255" height="65" rx="6" fill="#500724" stroke="#f472b6"/>
+    <text x="697" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Hermetic Workspaces</text>
+    <text x="697" y="74" text-anchor="middle" fill="#fbcfe8" font-size="9.5">D:/gitforge/data/build-workspaces/</text>
+    <text x="697" y="88" text-anchor="middle" fill="#fbcfe8" font-size="9.5">job_&lt;id&gt; isolated build dirs</text>
+
+    <rect x="845" y="38" width="255" height="65" rx="6" fill="#500724" stroke="#f472b6"/>
+    <text x="972" y="58" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="bold">Action Cache CAS</text>
+    <text x="972" y="74" text-anchor="middle" fill="#fbcfe8" font-size="9.5">D:/gitforge/data/build-cache/</text>
+    <text x="972" y="88" text-anchor="middle" fill="#fbcfe8" font-size="9.5">64-char SHA-256 keyed objects</text>
+  </g>
+</svg>

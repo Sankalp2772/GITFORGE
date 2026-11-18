@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds & Outputs
+dist/
+build/
+bin/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# GitForge Dynamic Runtime Storage (Workspaces & bare repos)
+data/build-workspaces/
+data/temp_*
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

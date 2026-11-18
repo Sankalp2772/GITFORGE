@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" width="1100" height="600">
+  <defs>
+    <linearGradient id="bfsbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b101b"/>
+      <stop offset="100%" stop-color="#141c2c"/>
+    </linearGradient>
+    <marker id="bfsArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="600" fill="url(#bfsbg)" rx="12"/>
+  <text x="550" y="45" fill="#f0f6fc" font-size="24" font-family="Segoe UI, sans-serif" font-weight="bold" text-anchor="middle">BFS Reverse Impact Traversal Algorithm</text>
+  <text x="550" y="72" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif" text-anchor="middle">How modifying a single header triggers selective recompilation across consumers</text>
+
+  <!-- Modified node -->
+  <g transform="translate(100, 250)">
+    <circle cx="60" cy="60" r="55" fill="#21262d" stroke="#f85149" stroke-width="3"/>
+    <text x="60" y="55" fill="#ff7b72" font-size="13" font-weight="bold" text-anchor="middle" font-family="Consolas">calculator.h</text>
+    <text x="60" y="75" fill="#da3633" font-size="11" font-weight="bold" text-anchor="middle" font-family="Segoe UI">MODIFIED</text>
+  </g>
+
+  <!-- Level 1 Consumers -->
+  <g transform="translate(450, 140)">
+    <circle cx="60" cy="60" r="55" fill="#21262d" stroke="#d29922" stroke-width="2"/>
+    <text x="60" y="55" fill="#e3b341" font-size="13" font-weight="bold" text-anchor="middle" font-family="Consolas">calculator.cpp</text>
+    <text x="60" y="75" fill="#8b949e" font-size="11" text-anchor="middle" font-family="Segoe UI">Level 1 Impact</text>
+  </g>
+
+  <g transform="translate(450, 360)">
+    <circle cx="60" cy="60" r="55" fill="#21262d" stroke="#d29922" stroke-width="2"/>
+    <text x="60" y="55" fill="#e3b341" font-size="13" font-weight="bold" text-anchor="middle" font-family="Consolas">formatter.cpp</text>
+    <text x="60" y="75" fill="#8b949e" font-size="11" text-anchor="middle" font-family="Segoe UI">Level 1 Impact</text>
+  </g>
+
+  <!-- Level 2 Consumer -->
+  <g transform="translate(800, 250)">
+    <circle cx="60" cy="60" r="55" fill="#21262d" stroke="#8957e5" stroke-width="2"/>
+    <text x="60" y="55" fill="#bc8cff" font-size="13" font-weight="bold" text-anchor="middle" font-family="Consolas">main.cpp</text>
+    <text x="60" y="75" fill="#8b949e" font-size="11" text-anchor="middle" font-family="Segoe UI">Level 2 Impact</text>
+  </g>
+
+  <!-- Arrows -->
+  <path d="M 215 285 L 450 200" stroke="#f85149" stroke-width="2" marker-end="url(#bfsArr)"/>
+  <path d="M 215 325 L 450 410" stroke="#f85149" stroke-width="2" marker-end="url(#bfsArr)"/>
+  <path d="M 565 200 L 800 285" stroke="#f85149" stroke-width="2" marker-end="url(#bfsArr)"/>
+  <path d="M 565 410 L 800 325" stroke="#f85149" stroke-width="2" marker-end="url(#bfsArr)"/>
+
+  <!-- Legend -->
+  <rect x="250" y="520" width="600" height="50" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="550" y="550" fill="#c9d1d9" font-size="13" font-family="Segoe UI" text-anchor="middle">BFS Queue: [calculator.h] &#8594; [calculator.cpp, formatter.cpp] &#8594; [main.cpp] &#8594; Result Set: 4 files</text>
+</svg>

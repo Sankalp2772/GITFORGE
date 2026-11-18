@@ -1,0 +1,5 @@
+# ninja log v7
+13	119	8158263460630851	CMakeFiles/gitforge_cpp_sample.dir/src/calculator.cpp.obj	73b5c3dcf51bf8a5
+18	332	8158263460701559	CMakeFiles/gitforge_cpp_sample.dir/src/formatter.cpp.obj	83d8f4dea9a81fb0
+6	388	8158263460562239	CMakeFiles/gitforge_cpp_sample.dir/src/main.cpp.obj	a277b02e9df5f8d6
+390	582	8158263464444951	gitforge_cpp_sample.exe	725bb88338bfaa99

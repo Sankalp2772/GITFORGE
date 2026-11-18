@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="1200" height="650">
+  <defs>
+    <linearGradient id="gitbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0e14"/>
+      <stop offset="100%" stop-color="#161c28"/>
+    </linearGradient>
+    <marker id="gitArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="gitArrGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="650" fill="url(#gitbg)" rx="12"/>
+  <text x="600" y="45" fill="#f0f6fc" font-size="24" font-family="Segoe UI, sans-serif" font-weight="bold" text-anchor="middle">Git Smart HTTP Transport Protocol Architecture</text>
+  <text x="600" y="72" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif" text-anchor="middle">Native Git CLI to Express Git HTTP Handler to Native Subprocess Execution</text>
+
+  <!-- Lifeline headers -->
+  <g transform="translate(80, 110)">
+    <rect width="160" height="40" rx="6" fill="#1f6feb"/>
+    <text x="80" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Developer (git CLI)</text>
+    <line x1="80" y1="40" x2="80" y2="480" stroke="#30363d" stroke-dasharray="4"/>
+  </g>
+
+  <g transform="translate(380, 110)">
+    <rect width="180" height="40" rx="6" fill="#8957e5"/>
+    <text x="90" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Express Router &amp; Auth</text>
+    <line x1="90" y1="40" x2="90" y2="480" stroke="#30363d" stroke-dasharray="4"/>
+  </g>
+
+  <g transform="translate(680, 110)">
+    <rect width="200" height="40" rx="6" fill="#238636"/>
+    <text x="100" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">gitHttp.ts Handler</text>
+    <line x1="100" y1="40" x2="100" y2="480" stroke="#30363d" stroke-dasharray="4"/>
+  </g>
+
+  <g transform="translate(980, 110)">
+    <rect width="160" height="40" rx="6" fill="#d29922"/>
+    <text x="80" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Bare Git Repo</text>
+    <line x1="80" y1="40" x2="80" y2="480" stroke="#30363d" stroke-dasharray="4"/>
+  </g>
+
+  <!-- Step 1: Info refs -->
+  <path d="M 160 190 L 470 190" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="315" y="180" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">GET /:owner/:repo.git/info/refs?service=git-receive-pack</text>
+
+  <!-- Auth check -->
+  <path d="M 470 220 L 780 220" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="625" y="210" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">Validate Basic Auth &amp; Write Permission</text>
+
+  <!-- Spawn upload/receive pack -->
+  <path d="M 780 250 L 1060 250" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="920" y="240" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">spawn git receive-pack --stateless-rpc --advertise-refs</text>
+
+  <!-- Refs returned -->
+  <path d="M 1060 290 L 160 290" stroke="#3fb950" stroke-width="2" marker-end="url(#gitArrGreen)"/>
+  <text x="610" y="280" fill="#7ee787" font-size="12" font-family="Consolas" text-anchor="middle">Stream pkt-line formatted refs &amp; capabilities</text>
+
+  <!-- Step 2: Push packfile -->
+  <path d="M 160 340 L 470 340" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="315" y="330" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">POST /:owner/:repo.git/git-receive-pack</text>
+
+  <!-- Pipe stdin -->
+  <path d="M 470 380 L 780 380" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="625" y="370" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">Pipe req stream directly to child.stdin</text>
+
+  <path d="M 780 420 L 1060 420" stroke="#58a6ff" stroke-width="2" marker-end="url(#gitArr)"/>
+  <text x="920" y="410" fill="#c9d1d9" font-size="12" font-family="Consolas" text-anchor="middle">git receive-pack writes objects &amp; unpacks</text>
+
+  <!-- Push success -->
+  <path d="M 1060 460 L 160 460" stroke="#3fb950" stroke-width="2" marker-end="url(#gitArrGreen)"/>
+  <text x="610" y="450" fill="#7ee787" font-size="12" font-family="Consolas" text-anchor="middle">Response Stream: unpack ok / refs/heads/main ok</text>
+</svg>

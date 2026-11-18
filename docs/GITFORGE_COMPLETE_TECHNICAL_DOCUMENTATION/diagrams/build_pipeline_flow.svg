@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 700" width="1300" height="700">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="cardGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#21262d"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff"/>
+    </marker>
+  </defs>
+
+  <rect width="1300" height="700" fill="url(#bg)" rx="12"/>
+  <text x="650" y="50" fill="#f0f6fc" font-size="24" font-family="Segoe UI, sans-serif" font-weight="bold" text-anchor="middle">GitForge Incremental Build Pipeline and Dependency Resolution Engine</text>
+  <text x="650" y="78" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif" text-anchor="middle">End-to-End Execution Flow from Git Commit Baseline to Parallel Worker Execution</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(50, 130)" filter="url(#shadow)">
+    <rect width="200" height="200" rx="8" fill="url(#cardGlow)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="200" height="36" rx="8" fill="#1f6feb"/>
+    <text x="100" y="24" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 1: Scan</text>
+    <text x="100" y="70" fill="#58a6ff" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">RepoSnapshotService</text>
+    <text x="20" y="105" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• git archive export</text>
+    <text x="20" y="130" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• File tree discovery</text>
+    <text x="20" y="155" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Metadata extraction</text>
+    <text x="20" y="180" fill="#8b949e" font-size="11" font-family="Segoe UI">Output: Snapshot Tree</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 250 230 L 290 230" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(300, 130)" filter="url(#shadow)">
+    <rect width="200" height="200" rx="8" fill="url(#cardGlow)" stroke="#8957e5" stroke-width="2"/>
+    <rect width="200" height="36" rx="8" fill="#8957e5"/>
+    <text x="100" y="24" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 2: Graph Build</text>
+    <text x="100" y="70" fill="#bc8cff" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">GraphBuilder</text>
+    <text x="20" y="105" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Regex #include scan</text>
+    <text x="20" y="130" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Dependency DAG build</text>
+    <text x="20" y="155" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Forward / reverse edges</text>
+    <text x="20" y="180" fill="#8b949e" font-size="11" font-family="Segoe UI">Output: Node and Edge DAG</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 500 230 L 540 230" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(550, 130)" filter="url(#shadow)">
+    <rect width="200" height="200" rx="8" fill="url(#cardGlow)" stroke="#238636" stroke-width="2"/>
+    <rect width="200" height="36" rx="8" fill="#238636"/>
+    <text x="100" y="24" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 3: Diff Detect</text>
+    <text x="100" y="70" fill="#3fb950" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">ChangeDetectionService</text>
+    <text x="20" y="105" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• SHA-256 Hash compare</text>
+    <text x="20" y="130" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Target vs Baseline git</text>
+    <text x="20" y="155" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Added, modified, del</text>
+    <text x="20" y="180" fill="#8b949e" font-size="11" font-family="Segoe UI">Output: Directly Modified Files</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 750 230 L 790 230" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- Step 4 -->
+  <g transform="translate(800, 130)" filter="url(#shadow)">
+    <rect width="200" height="200" rx="8" fill="url(#cardGlow)" stroke="#d29922" stroke-width="2"/>
+    <rect width="200" height="36" rx="8" fill="#d29922"/>
+    <text x="100" y="24" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 4: Impact Analysis</text>
+    <text x="100" y="70" fill="#e3b341" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">AffectedAnalysisService</text>
+    <text x="20" y="105" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• BFS Reverse DAG Walk</text>
+    <text x="20" y="130" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Direct + transitive impacts</text>
+    <text x="20" y="155" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Header cascades to .cpp</text>
+    <text x="20" y="180" fill="#8b949e" font-size="11" font-family="Segoe UI">Output: Recompile Target Set</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 1000 230 L 1040 230" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- Step 5 -->
+  <g transform="translate(1050, 130)" filter="url(#shadow)">
+    <rect width="200" height="200" rx="8" fill="url(#cardGlow)" stroke="#da3633" stroke-width="2"/>
+    <rect width="200" height="36" rx="8" fill="#da3633"/>
+    <text x="100" y="24" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 5: Build Plan</text>
+    <text x="100" y="70" fill="#f85149" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">BuildPlannerService</text>
+    <text x="20" y="105" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Kahn's Topological Sort</text>
+    <text x="20" y="130" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• In-degree reduction queue</text>
+    <text x="20" y="155" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Strict Cycle Detection</text>
+    <text x="20" y="180" fill="#8b949e" font-size="11" font-family="Segoe UI">Output: Tiered Build Actions</text>
+  </g>
+
+  <!-- Stage 6: Parallel Execution & Cache (Full Width Box Below) -->
+  <g transform="translate(50, 390)" filter="url(#shadow)">
+    <rect width="1200" height="260" rx="8" fill="url(#cardGlow)" stroke="#388bfd" stroke-width="2"/>
+    <rect width="1200" height="36" rx="8" fill="#388bfd"/>
+    <text x="600" y="24" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Stage 6: Parallel Build Scheduler and Content-Addressable Action Cache</text>
+    
+    <g transform="translate(40, 60)">
+      <rect width="240" height="170" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="120" y="28" fill="#58a6ff" font-size="13" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Worker Pool (1, 2, 4, 8)</text>
+      <text x="15" y="60" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Independent child processes</text>
+      <text x="15" y="85" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Concurrency bounded by pool</text>
+      <text x="15" y="110" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Ready queue event trigger</text>
+      <text x="15" y="135" fill="#7ee787" font-size="12" font-family="Segoe UI">&#10003; Zero-dependency parallel dispatch</text>
+    </g>
+
+    <g transform="translate(320, 60)">
+      <rect width="250" height="170" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="125" y="28" fill="#3fb950" font-size="13" font-weight="bold" text-anchor="middle" font-family="Segoe UI">BuildCacheService (CAS)</text>
+      <text x="15" y="60" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• ActionKey = SHA256(inputs)</text>
+      <text x="15" y="85" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Object file storage / restore</text>
+      <text x="15" y="110" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Cache HIT skips compilation</text>
+      <text x="15" y="135" fill="#7ee787" font-size="12" font-family="Segoe UI">&#10003; Massive rebuild acceleration</text>
+    </g>
+
+    <g transform="translate(610, 60)">
+      <rect width="260" height="170" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="130" y="28" fill="#bc8cff" font-size="13" font-weight="bold" text-anchor="middle" font-family="Segoe UI">Compilation and Link Pipeline</text>
+      <text x="15" y="60" fill="#c9d1d9" font-size="12" font-family="Segoe UI">1. cmake_configure (per workspace)</text>
+      <text x="15" y="85" fill="#c9d1d9" font-size="12" font-family="Segoe UI">2. compile_object (parallel .o files)</text>
+      <text x="15" y="110" fill="#c9d1d9" font-size="12" font-family="Segoe UI">3. link_executable (final binary)</text>
+      <text x="15" y="135" fill="#c9d1d9" font-size="12" font-family="Segoe UI">Toolchain: MinGW GCC / Clang / MSVC</text>
+    </g>
+
+    <g transform="translate(910, 60)">
+      <rect width="250" height="170" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="125" y="28" fill="#f0883e" font-size="13" font-weight="bold" text-anchor="middle" font-family="Segoe UI">LocalRunManager</text>
+      <text x="15" y="60" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Interactive terminal run</text>
+      <text x="15" y="85" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• Real-time stdout/err capture</text>
+      <text x="15" y="110" fill="#c9d1d9" font-size="12" font-family="Segoe UI">• sendInput() stdin pipe bridge</text>
+      <text x="15" y="135" fill="#7ee787" font-size="12" font-family="Segoe UI">&#10003; Exit code and timing tracker</text>
+    </g>
+  </g>
+
+  <!-- Connecting line from Stage 5 to Stage 6 -->
+  <path d="M 1150 330 L 1150 360 L 650 360 L 650 390" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrow)" fill="none"/>
+</svg>
