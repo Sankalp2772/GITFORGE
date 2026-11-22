@@ -1,21 +1,59 @@
-# GitForge – Phase 1 & Phase 2: Complete Platform Documentation
+# GitForge: Self-Hosted Git Platform & Incremental Build Engine
 
-GitForge is a high-performance, GitHub-like code hosting platform built from scratch with native Git CLI execution, Git Smart HTTP clone/pull/push support, collaboration and member management, and an interactive dark-themed React + Monaco Editor frontend.
-
----
-
-## 1. System Architecture
-
-- **Root Directory:** `D:\gitforge`
-- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS (dark theme with purple accents), React Router, Axios, Monaco Editor, Lucide React (`D:\gitforge\client`).
-- **Backend:** Node.js, Express, TypeScript, Prisma ORM, MySQL 8.0 / PostgreSQL compatible (`D:\gitforge\server`).
-- **Storage:** Bare Git repositories stored at `D:\gitforge\data\repos\{username}\{repository}.git`.
-- **Git Smart HTTP:** Custom streaming endpoints for native `git-upload-pack` and `git-receive-pack` supporting standard CLI `git clone`, `git fetch`, and `git push`.
-- **Collaboration:** Repository member management with RBAC (`OWNER`, `ADMIN`, `WRITE`, `READ`), Pull Requests with inline unified diffs and Git merging, Issues, and Notifications.
+GitForge is a high-performance, enterprise-ready code hosting and build execution platform built from scratch with native Git Smart HTTP protocol support, an in-browser Monaco Editor IDE, and a Bazel-inspired incremental build and dependency resolution engine.
 
 ---
 
-## 2. Seeded Test Accounts
+## 🏛️ System Architecture & Visual Design
+
+### 1. High-Level System Architecture & Component Interaction
+![High-Level System Architecture](docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/diagrams/gitforge_high_level_architecture.png)
+
+GitForge is structured across 5 distinct tiers:
+- **Presentation Layer:** React 18, Vite, Tailwind CSS, Monaco Editor, and ReactFlow interactive DAG canvas.
+- **Network & Gateway:** HTTP 1.1 REST endpoints and native Git Smart HTTP packet-line (`pkt-line`) streaming RPC (`git-upload-pack`, `git-receive-pack`).
+- **Core Engine Subsystems (E1–E4):** Modular TypeScript engines coordinating change detection, AST graph parsing, impact analysis, Kahn's topological sort, and worker execution.
+- **Storage Layer:** MySQL 8.0 relational metadata (Prisma ORM), bare Git repositories (`data/repos/`), and Content-Addressable Storage (`data/build-cache/`).
+- **Compiler Toolchain:** Direct process execution supporting MinGW GCC/Clang, CMake, Ninja, Node.js, and Python.
+
+---
+
+### 2. Algorithmic Processing Pipeline & Control Flow Logic
+![Algorithmic Processing Pipeline](docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/diagrams/gitforge_algorithmic_pipeline.png)
+
+The incremental build engine executes a multi-stage mathematical and algorithmic pipeline:
+1. **Content Fingerprinting ($O(N \cdot \text{FileSize})$):** Streams file buffers into SHA-256 digests; immune to false rebuilds caused by timestamp touches.
+2. **Dependency Graph Generation ($O(V+E)$):** Extracts `#include`, `import`, and `require` statements to construct an in-memory Directed Acyclic Graph (DAG).
+3. **Reverse BFS Impact Analysis ($O(V+E)$):** Inverts the graph to traverse downstream dependents, isolating directly affected, transitively affected, and cache-safe files.
+4. **Kahn's Topological Sort ($O(V+E)$):** Schedules compilation waves and detects circular dependency cycles before compiler invocation.
+5. **Content-Addressable Storage (CAS):** Computes composite `ActionKey = SHA256(inputs + CLI args + env)`. Cache hits skip compilation entirely ($0\text{ ms}$, $0\text{ CPU cycles}$).
+6. **Parallel Multi-Core Execution:** Spawns bounded worker processes across 1, 2, 4, or 8 cores with real-time `stdio` streaming.
+
+---
+
+### 3. Data Design & Entity Relationship (ER) Diagram
+![Entity Relationship Diagram](docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/diagrams/gitforge_data_design_er.png)
+
+Relational database models managed via Prisma ORM for MySQL 8.0:
+- **`User`**: Account identity, bcrypt password salting/hashing, and profile metadata.
+- **`Repository`**: Bare Git mapping, default branch, and visibility controls (Public / Private).
+- **`RepositoryMember` & `RepositoryInvitation`**: RBAC permissions (`OWNER`, `ADMIN`, `WRITE`, `READ`).
+- **`PullRequest`, `Review`, `Comment`**: Branch diff tracking and automated native Git merge integration.
+- **`Issue` & `ActivityLog`**: Issue tracking, discussion threads, and platform audit logs.
+- **`BuildHistory` & CAS**: Persists execution metrics and links compiled object binaries (`.o`) by SHA-256 hash.
+
+---
+
+### 4. Security Architecture, RBAC & Trust Boundaries
+![Security Architecture & RBAC](docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/diagrams/gitforge_security_rbac_architecture.png)
+
+- **Defense-in-Depth Zones:** Untrusted External Clients $\rightarrow$ Verified Auth Boundary (JWT & Basic Auth) $\rightarrow$ Sandboxed Core Execution.
+- **Command Injection Prevention:** Replaced unsafe shell execution (`exec`) with array-argument subprocess vectorization (`child_process.spawn`). Blocks subshells, chaining (`;`, `&&`, `|`), and path traversal (`../`) escapes.
+- **Unified RBAC:** Enforces access control consistently across both REST API requests and Git CLI commands.
+
+---
+
+## 🔑 Seeded Demo Accounts
 
 The following demo accounts are available in the local database:
 
@@ -28,90 +66,54 @@ The following demo accounts are available in the local database:
 
 ---
 
-## 3. Running GitForge Locally
+## 🚀 Running GitForge Locally
 
-### Step 1: Start Backend Server
+### Option 1: One-Click Platform Launcher (Windows)
+Run the automated launcher script from the root directory:
+```cmd
+START_GITFORGE.bat
+```
+*Automatically verifies MySQL 8.0, starts the backend on port 5000, starts Vite on port 5174, and opens your browser.*
+
+### Option 2: Manual Start
+
+#### Backend Server
 ```bash
-cd D:\gitforge\server
+cd server
 npm run dev
-# Starts on http://localhost:5000
+# Starts backend REST and Git HTTP on http://localhost:5000
 ```
 
-### Step 2: Start Frontend Development Server
+#### Frontend Development Server
 ```bash
-cd D:\gitforge\client
+cd client
 npm run dev
-# Starts on http://localhost:5174 (or 5173 if free)
+# Starts on http://localhost:5174
 ```
-
-The frontend Vite server automatically proxies all `/api` and `/git` requests directly to the backend.
 
 ---
 
-## 4. Frontend Feature Walkthrough
+## 💻 Git CLI Usage (Smart HTTP)
 
-1. **Authentication (`/login` & `/register`)**:
-   - Username/email login with password visibility toggling, client form validation, and JWT persistence.
-2. **Dashboard (`/`)**:
-   - Repository overview (Owned + Collaborations), real-time pending invitation acceptance/rejection, recent activity logs, and user profile overview.
-3. **Repository Creation (`/new`)**:
-   - Create bare repositories with customizable visibility (Public/Private) and optional automatic `README.md` initial commit.
-4. **Code Browser (`/:owner/:repo`)**:
-   - Native Git tree navigation, branch switcher, branch creation modal, commit preview, and Monaco Editor read-only file viewing.
-5. **Commit History (`/:owner/:repo/commits`)**:
-   - List commit history with author, date, and SHA, and click any commit to inspect its unified diff.
-6. **Member Management (`/:owner/:repo/members`)**:
-   - Search users, send invitations with roles (`ADMIN`, `WRITE`, `READ`), view and cancel pending invitations, adjust member roles, or remove members.
-7. **Pull Requests (`/:owner/:repo/pulls`)**:
-   - Open PRs comparing branches, inspect branch diffs, post comments, approve reviews, and execute automated native Git merges.
-8. **Issues (`/:owner/:repo/issues`)**:
-   - Open issues, track discussion comments, and toggle status (`OPEN` / `CLOSED`).
-9. **Settings (`/:owner/:repo/settings`)**:
-   - Modify repository metadata or permanently delete repositories and disk storage.
-10. **Explore (`/explore`)**:
-    - Search all public Git repositories.
-11. **User Profile (`/:username`)**:
-    - Update bio and avatar.
+GitForge functions as a full-featured Git remote without third-party Git daemons:
 
+```bash
+# Clone a repository
+git clone http://localhost:5000/alice/core-runtime.git
+
+# Make changes and push
+git add .
+git commit -m "feat: add new feature"
+git push origin main
+```
+*(Enter credentials: username: `alice`, password: `DemoPassword123!`)*
 
 ---
 
-## 5. Phase 4: Custom Incremental Build & Dependency Resolution Engine
+## 📂 Academic Documentation & Project Handbooks
 
-A separate, Bazel-inspired incremental build subsystem integrated into GitForge, accessible directly via the top navigation bar at `/build-engine`.
-
-### Subsystem Architecture
-
-1. **Repository Scanner & SHA-256 Baseline**:
-   - Reads exact Git commit snapshots without cloning.
-   - Computes deterministic SHA-256 hashes of all source files.
-   - Detects project languages and entry points (C/C++, TypeScript/JavaScript, Python).
-
-2. **Source-File Dependency Resolution**:
-   - Multi-language AST/regex parsers for `#include`, `import`, and `require`.
-   - Generates interactive directed acyclic graphs (DAG) rendered via `@xyflow/react` (`A -> B`: `A` depends on `B`).
-
-3. **Change Detection & BFS Reverse Traversal**:
-   - Detects modified, added, and deleted files by baseline comparison.
-   - Computes directly and transitively affected files using reverse BFS dependency traversal.
-   - Highlights unaffected files safe for caching.
-
-4. **Build Planner (Kahn's Topological Sort)**:
-   - Validates `build.manifest.json` against command-injection vulnerabilities (blocking pipes, subshells, chaining).
-   - Generates deterministic execution orders and parallel independent execution batches.
-   - Cycle detection rejects cyclic graphs with diagnostic error paths.
-
-5. **Bounded Parallel Execution & Native Compilation**:
-   - Bounded parallel scheduler (1 to 8 concurrent workers) using native Node.js process spawning.
-   - Zero Docker or Bazel dependencies — compiles using local MinGW/UCRT GCC (`C:\msys64\ucrt64\bin\g++.exe`).
-   - Workspace isolation at `D:\gitforge\data\build-workspaces\{jobId}\`.
-
-6. **Content-Addressable Cache**:
-   - Stored on disk at `D:\gitforge\data\build-cache\`.
-   - Keys derived from target command, arguments, and input file SHA-256 digests.
-   - Cache hits skip compilation and copy pre-built artifacts in constant time.
-
-7. **Local Run Manager & Build History**:
-   - Launch and monitor built executables (`bin/app.exe`).
-   - Captures real-time stdout and stderr with PID tracking.
-   - Persistent build execution logs and metrics.
+All formal review handbooks and requirement specifications are located in the [`docs/`](docs/) directory:
+- **Sprint 1 Handbook:** [`docs/CHAPTER_4_SPRINT_1_STUDENT_HANDBOOK.docx`](docs/CHAPTER_4_SPRINT_1_STUDENT_HANDBOOK.docx)
+- **Gate 0 Project Synopsis:** [`docs/GATE_0_PROJECT_SYNOPSIS_TEAM_1.docx`](docs/GATE_0_PROJECT_SYNOPSIS_TEAM_1.docx)
+- **Gate 1 Requirements Engineering:** [`docs/GATE_1_REQUIREMENTS_ENGINEERING_TEAM_1.docx`](docs/GATE_1_REQUIREMENTS_ENGINEERING_TEAM_1.docx)
+- **Technical Documentation & Diagrams:** [`docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/`](docs/GITFORGE_COMPLETE_TECHNICAL_DOCUMENTATION/)
